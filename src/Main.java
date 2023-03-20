@@ -388,87 +388,161 @@ public class Main {
 
     private static void zadanie2() {
 
-        System.out.println("  N               MT                  MP");
+        System.out.println("  N               MT                     MP                       MS                     MGL");
 
         double t10=MT(10,1,0);
 
         double p10=MP(10,1,0);
 
-        System.out.println("a 10              "+t10+"  "+p10);
+        double s10=MS(10,1,0);
 
-        double t100=MT(100,1,0);
+        double gl=MGL(10,1,0);
+
+        System.out.printf("a 10             %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
+
+        System.out.println();
+
+        t10=MT(100,1,0);
 
         p10=MP(100,1,0);
 
-        System.out.println("b 100             "+t100+"  "+p10);
+        s10=MS(100,1,0);
 
-        double t1000=MT(1000,1,0);
+        gl=MGL(100,1,0);
+
+        System.out.printf("b 100             %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
+
+        System.out.println();
+
+        t10=MT(1000,1,0);
 
         p10=MP(1000,1,0);
 
-        System.out.println("c 1000            "+t1000+"  "+p10);
+        s10=MS(1000,1,0);
 
-        double t10000=MT(10_000,1,0);
+        gl=MGL(1000,1,0);
+
+        System.out.printf("c 1000            %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
+
+        System.out.println();
+
+        t10=MT(10_000,1,0);
 
         p10=MP(10_000,1,0);
 
-        System.out.println("d 10000           "+t10000+"  "+p10);
+        s10=MS(10_000,1,0);
 
-        double t100000=MT(100_000,1,0);
+        gl=MGL(10_000,1,0);
+
+        System.out.printf("d 10000           %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
+
+        System.out.println();
+
+        t10=MT(100_000,1,0);
 
         p10=MP(100_000,1,0);
 
-        System.out.println("e 100000          "+t100000+"  "+p10);
+        s10=MS(100_000,1,0);
 
-        double t1000000=MT(1_000_000,1,0);
+        gl=MGL(100_000,1,0);
+
+        System.out.printf("e 100000          %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
+
+        System.out.println();
+
+        t10=MT(1_000_000,1,0);
 
         p10=MP(1_000_000,1,0);
 
-        System.out.println("f 1000000         "+t1000000+" "+p10);
+        s10=MS(1_000_000,1,0);
 
-        double t10000000=MT(10_000_000,1,0);
+        gl=MGL(1_000_000,1,0);
+
+        System.out.printf("f 1000000         %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
+
+        System.out.println();
+
+        t10=MT(10_000_000,1,0);
 
         p10=MP(10_000_000,1,0);
 
-        System.out.println("g 10000000        "+t10000000+" "+p10);
+        s10=MS(10_000_000,1,0);
 
-        double t100000000=MT(100_000_000,1,0);
+        gl=MGL(10_000_000,1,0);
+
+        System.out.printf("g 10000000        %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
+
+        System.out.println();
+
+        t10=MT(100_000_000,1,0);
 
         p10=MP(100_000_000,1,0);
 
-        System.out.println("h 100000000       "+t100000000+"  "+p10);
+        s10=MS(100_000_000,1,0);
 
-        double t1000000000=MT(1_000_000_000,1,0);
+        gl=MGL(100_000_000,1,0);
+
+        System.out.printf("h 100000000       %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
+
+        System.out.println();
+
+        t10=MT(1_000_000_000,1,0);
+
+        s10=MS(1_000_000_000,1,0);
 
         p10=MP(1_000_000_000,1,0);
 
-        System.out.println("i 1000000000      "+t1000000000+"  "+p10);
+        gl=MGL(1_000_000_000,1,0);
+
+        System.out.printf("i 1000000000      %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
+
+        System.out.println();
     }
 
-    public static double MT(int n,double b,double a){
+    public static double MT(double n,double b,double a){
 
-        double dx,calka;
+        /*double dx,calka;
 
         dx = (b - a) / (double)n;
 
         calka = 0;
-        for (int i=1; i<n; i++) {
+        for (int i=1; i<=n; i++) {
             calka += zad2(a + i * dx);
         }
         calka += (zad2(a) + zad2(b)) / 2;
-        calka *= dx;
+        calka *= dx;*/
 
-        return calka;
-    }
-
-    public static double MP(int n,double b,double a){
-        double dx,calka=0;
+        double calka=0;
 
         double lew;
 
         double pra;
 
-        for (int i=1; i<n; i++) {
+        double h=(b-a)/n;
+
+        for (int i=1; i<=n; i++) {
+
+            lew=Math.abs(zad2(a+(i-1)*h));
+
+            pra=Math.abs(zad2(a+i*h));
+
+            calka+=lew+pra;
+
+        }
+
+        calka*=h*0.5;
+
+        return calka;
+    }
+
+    public static double MP(double n,double b,double a){
+        double calka=0;
+
+        double lew;
+
+        double pra;
+
+        for (int i=1; i<=n; i++) {
 
             lew=(b-a)/(2*n);
 
@@ -482,14 +556,69 @@ public class Main {
         return calka;
     }
 
-    public static double MS(){
+    public static double MS(double n,double b,double a){
         double calka=0;
+
+        double lew;
+
+        double pra;
+
+        for (int i=1; i<=n; i++) {
+
+            lew=a-((b-a)/(2*n))+i*(b-a)/n;
+
+            pra=a+i*(b-a)/n;
+
+            lew=4*zad2(lew);
+
+            pra=2*zad2(pra);
+
+            calka += pra+lew;
+        }
+
+        calka+=zad2(a)-zad2(b);
+
+        calka*=(b-a)/(6*n);
 
         return calka;
     }
 
-    public static double MGL(){
-        double calka=0;
+    public static double MGL(double n,double b,double a){
+        double[] x = {-0.906179845938663992797626878299392965125651910762530862873762286,
+                -0.538469310105683091036314420700208804967286606905559956202231627,
+                0,
+                0.538469310105683091036314420700208804967286606905559956202231627,
+                0.906179845938663992797626878299392965125651910762530862873762286};
+        double[] w = {0.2369268850561890875142640407199173626432600022124140155828278882
+                , 0.4786286704993664680412915148356381929122955533431415399727276673
+                , 0.5688888888888888888888888888888888888888888888888888888888888888
+                , 0.4786286704993664680412915148356381929122955533431415399727276673
+                , 0.2369268850561890875142640407199173626432600022124140155828278882};
+
+        double calka=0,lew,pra,suma=0;
+
+        for(int i=0;i<5;i++) {
+            for (int j = 0; j < n; j++) {
+
+                lew = (b - a) / (2 * n);
+
+                lew *= (2 * j - 1);
+
+                pra = (b - a) / (2 * n);
+
+                pra *= x[i];
+
+                suma += zad2(a + lew + pra);
+            }
+
+            suma*=w[i];
+
+            calka+=suma;
+
+            suma=0;
+        }
+
+        calka*=(b-a)/(2*n);
 
         return calka;
     }
