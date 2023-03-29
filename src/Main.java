@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,7 +8,7 @@ public class Main {
 
         //Double();
 
-       // xxx();
+        // xxx();
 
 
         //zzz();
@@ -30,7 +31,60 @@ public class Main {
 
         zadanie2();
 
+        /*przykład1();
+
+        przykład2();
+
+        przykład3();
+
+        przykład4();*/
+
+        //test();
+
     }
+
+    public static void test() {
+
+        double a = 0.0;
+
+        double b = 1.0;
+
+        int n = 10;
+
+        for (int i = 0; i < 9; i++) {
+
+            double result1 = trapezoidalMethod( a, b, n);
+
+            System.out.println(result1);
+            n=n*10;
+        }
+
+/// policzenia wyniku całkowania dla każdej z funkcji testowych
+
+        double result = trapezoidalMethod(a,b,n );
+
+    }
+
+    public static double trapezoidalMethod(double a,double b,int n){// Eugodt poprzeszkolu
+
+        double h=(b-a)/n;
+
+        double sum = (zad2(a) + zad2(b))/2.0; // suna wartości funkcji na krancach przedziału
+
+        for (int i = 1; i < n; i++) {
+            double x = a + i*h; // punkt środkowy 1-tegu pooprzedziału
+
+            sum+= zad2(x); // dodanie wartotel funkcji w punkcie środkowye de suny
+
+        }
+
+        return h*sum;
+        // wynik satuwaele przybliżony, autody Trapezow
+
+
+}
+
+
     public static void xxx(){
        double [] x={ 2.436,
                2.435,
@@ -224,7 +278,45 @@ public class Main {
         return v;
     }
 
-    public static void zadanie1(){
+    public static void przykład1(){
+        System.out.println(metodaTrapezów(0,10,0));
+
+        System.out.println(metodaTrapezów(-1,1,1));
+
+        System.out.println(metodaTrapezów(-10,10,2));
+
+        System.out.println(metodaTrapezów(-10,0,3));
+
+        System.out.println(metodaTrapezów(0,1,4));
+
+    }
+
+    public static void przykład2(){
+        System.out.println(metodaProstokątów(0,10,0));
+
+        System.out.println(metodaProstokątów(-1,1,1));
+
+        System.out.println(metodaProstokątów(-10,10,2));
+
+        System.out.println(metodaProstokątów(-10,0,3));
+
+        System.out.println(metodaProstokątów(0,1,4));
+
+    }
+
+    public static void przykład3(){
+        System.out.println(Simpson(0,10,0));
+
+        System.out.println(Simpson(-1,1,1));
+
+        System.out.println(Simpson(-10,10,2));
+
+        System.out.println(Simpson(-10,0,3));
+
+        System.out.println(Simpson(0,1,4));
+
+    }
+    public static void przykład4(){
 
         System.out.println("wynik całek    wynik metody Gaus");
 
@@ -261,43 +353,34 @@ public class Main {
 
     }
 
-    public static double metodaTrapezów(double xp, double xk, double fPocz,
-                                        double fKonc){
-        /*double dx, calka;
-        int n=10000;
-
-        dx = (xk - xp) / (double)n;
-
-        calka = 0;
-        for (int i=1; i<n; i++) {
-            calka += func(xp + i * dx, pow);
-        }
-        calka += (func(xp,pow) + func(xk,pow)) / 2;
-        calka *= dx;*/
-
+    public static double metodaTrapezów(double xp, double xk, int pow){
         double calka=xk-xp;
 
-        calka *=(fKonc+fPocz);
+        calka *=(func(xp,pow)+func(xk,pow));
 
         calka /=2;
 
         return calka;
     }
 
-    public static double metodaProstokątów(double xp, double xk,double fC){
+    public static double metodaProstokątów(double xp, double xk,int pow){
 
         double calka=xk-xp;
 
-        calka *=fC;
+        double x=xp+xk;
+
+        calka *=func(x/2,pow);
 
         return calka;
     }
 
-    public static double Simpson(double xp, double xk,double fP,double fK,double fC){
+    public static double Simpson(double xp, double xk,int pow){
 
         double calka=(xk-xp)/6;
 
-        double calka2=fK+4*fC+fP;
+        double x=xp+xk;
+
+        double calka2=func(xp,pow)+4*func(x/2,pow)+func(xk,pow);
 
         calka*=calka2;
 
@@ -501,38 +584,18 @@ public class Main {
 
     public static double MT(double n,double b,double a){
 
-        /*double dx,calka;
-
-        dx = (b - a) / (double)n;
-
-        calka = 0;
-        for (int i=1; i<=n; i++) {
-            calka += zad2(a + i * dx);
-        }
-        calka += (zad2(a) + zad2(b)) / 2;
-        calka *= dx;*/
-
-        double calka=0;
-
-        double lew;
-
-        double pra;
+        double calka=(zad2(a)+zad2(b))/2.0;
 
         double h=(b-a)/n;
 
-        for (int i=1; i<=n; i++) {
+        for (int i=1; i<n; i++) {
 
-            lew=Math.abs(zad2(a+(i-1)*h));
-
-            pra=Math.abs(zad2(a+i*h));
-
-            calka+=lew+pra;
+            calka+=zad2(a+i*h);
 
         }
 
-        calka*=h*0.5;
 
-        return calka;
+        return calka*h;
     }
 
     public static double MP(double n,double b,double a){
@@ -542,16 +605,20 @@ public class Main {
 
         double pra;
 
-        for (int i=1; i<=n; i++) {
+        for (double i=1; i<=n; i++) {
 
-            lew=(b-a)/(2*n);
+            lew=b-a;
+            lew/=2*n;
 
-            pra=i*(b-a)/n;
+            pra=i;
+            pra*=b-a;
+            pra/=n;
 
             calka += zad2(a-lew+pra);
         }
 
-        calka*=(b-a)/n;
+        calka*=(b-a);
+        calka/=n;
 
         return calka;
     }
@@ -565,9 +632,9 @@ public class Main {
 
         for (int i=1; i<=n; i++) {
 
-            lew=a-((b-a)/(2*n))+i*(b-a)/n;
+            lew=a-(b-a)/(2.0*n)+i*((b-a)/n);
 
-            pra=a+i*(b-a)/n;
+            pra=a+i*((b-a)/n);
 
             lew=4*zad2(lew);
 
@@ -597,8 +664,8 @@ public class Main {
 
         double calka=0,lew,pra,suma=0;
 
-        for(int i=0;i<5;i++) {
-            for (int j = 0; j < n; j++) {
+        for(int i=1;i<=5;i++) {
+            for (int j = 1; j <= n; j++) {
 
                 lew = (b - a) / (2 * n);
 
@@ -606,12 +673,12 @@ public class Main {
 
                 pra = (b - a) / (2 * n);
 
-                pra *= x[i];
+                pra *= x[i-1];
 
                 suma += zad2(a + lew + pra);
             }
 
-            suma*=w[i];
+            suma*=w[i-1];
 
             calka+=suma;
 
@@ -622,4 +689,32 @@ public class Main {
 
         return calka;
     }
+
+    public static double MGLPRZE(double N, double b, int a){
+            double x[] = new double[5];
+            x[0] = -(1.0/3.0) * Math.sqrt(5 + 2 * Math.sqrt(10d / 7d));
+            x[1] = -(1.0/3.0) * Math.sqrt(5 - 2 * Math.sqrt(10d / 7d));
+            x[2] = 0;
+            x[3] = (1.0/3.0) * Math.sqrt(5 - 2 * Math.sqrt(10d / 7d));
+            x[4] = (1.0/3.0) * Math.sqrt(5 + 2 * Math.sqrt(10d / 7d));
+
+            double w[] = new double[5];
+            w[0] = (322 - 13 * Math.sqrt(70)) / 900;
+            w[1] = (322 + 13 * Math.sqrt(70)) / 900;
+            w[2] = 128d / 225d;
+            w[3] = (322 + 13 * Math.sqrt(70)) / 900;
+            w[4] = (322 - 13 * Math.sqrt(70)) / 900;
+
+            double result = 0;
+            double calka=0;
+            double temp = (b-a)/N;
+            for (int i = 1; i <= 5; i++) {
+                result=0;
+                for (int j = 1; j <= N; j++) {
+                    result += zad2(a + (2*j - 1)* (temp/2) + (temp/2)*x[i-1]);
+                }
+                calka += w[i-1]*result;
+            }
+            return temp/2 * calka;
+        }
 }
