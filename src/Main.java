@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Function;
 
@@ -29,7 +30,7 @@ public class Main {
 
         //zadanie1();
 
-        zadanie2();
+        //zadanie2();
 
         /*przykład1();
 
@@ -41,6 +42,21 @@ public class Main {
 
         //test();
 
+        //monte();
+
+        //monteBlad();
+
+        //pi();
+
+        //System.out.println(Math.atan(1)*4);
+
+        //x();
+
+        //randomWalker2D(10);
+
+        //y();
+
+        licz();
     }
 
     public static void test() {
@@ -479,7 +495,7 @@ public class Main {
 
         double s10=MS(10,1,0);
 
-        double gl=MGL(10,1,0);
+        double gl=MGL(3,1,0);
 
         System.out.printf("a 10             %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
 
@@ -491,7 +507,7 @@ public class Main {
 
         s10=MS(100,1,0);
 
-        gl=MGL(100,1,0);
+        gl=MGL(9,1,0);
 
         System.out.printf("b 100             %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
 
@@ -503,7 +519,7 @@ public class Main {
 
         s10=MS(1000,1,0);
 
-        gl=MGL(1000,1,0);
+        gl=MGL(27,1,0);
 
         System.out.printf("c 1000            %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
 
@@ -515,7 +531,7 @@ public class Main {
 
         s10=MS(10_000,1,0);
 
-        gl=MGL(10_000,1,0);
+        gl=MGL(81,1,0);
 
         System.out.printf("d 10000           %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
 
@@ -527,7 +543,7 @@ public class Main {
 
         s10=MS(100_000,1,0);
 
-        gl=MGL(100_000,1,0);
+        gl=MGL(243,1,0);
 
         System.out.printf("e 100000          %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
 
@@ -539,7 +555,7 @@ public class Main {
 
         s10=MS(1_000_000,1,0);
 
-        gl=MGL(1_000_000,1,0);
+        gl=MGL(729,1,0);
 
         System.out.printf("f 1000000         %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
 
@@ -551,7 +567,7 @@ public class Main {
 
         s10=MS(10_000_000,1,0);
 
-        gl=MGL(10_000_000,1,0);
+        gl=MGL(2187,1,0);
 
         System.out.printf("g 10000000        %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
 
@@ -563,7 +579,7 @@ public class Main {
 
         s10=MS(100_000_000,1,0);
 
-        gl=MGL(100_000_000,1,0);
+        gl=MGL(6561,1,0);
 
         System.out.printf("h 100000000       %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
 
@@ -575,7 +591,7 @@ public class Main {
 
         p10=MP(1_000_000_000,1,0);
 
-        gl=MGL(1_000_000_000,1,0);
+        gl=MGL(19683,1,0);
 
         System.out.printf("i 1000000000      %,.16f     %,.16f       %,.16f     %,.16f",t10,p10,s10,gl);
 
@@ -716,5 +732,167 @@ public class Main {
                 calka += w[i-1]*result;
             }
             return temp/2 * calka;
+    }
+
+
+        public static double[] monte(){
+
+            Random los =new Random();
+
+            double y;
+
+            double a=0,b=1,suma=0;
+
+            long n=10;
+
+            double wynik [] = new double[10];
+
+            for (int i=0;i<10;i++){
+
+                for(long j=1;j<=n;j++) {
+                    y=los.nextDouble(1);
+                    suma += zad2(y);
+                }
+
+                suma*=(b-a)/n;
+
+                System.out.println(n+" "+suma);
+
+                wynik[i] = suma;
+
+                n*=10;
+            }
+
+
+            return wynik;
         }
+
+        public static void monteBlad(){
+        double [][] pomiar = new double[10][10];
+
+        double [] srednia = {0,0,0,0,0,0,0,0,0,0};
+
+        for(int j=0;j<10;j++) {
+            double z[] = monte();
+
+            for (int i = 0; i < 10; i++) {
+                pomiar[i][j] = z[i];
+                System.out.print(pomiar[i][j]+" ");
+            }
+            System.out.println();
+        }
+
+            for(int j=0;j<10;j++) {
+                for (int i = 0; i < 10; i++) {
+                    srednia[j] +=pomiar[j][i];
+                }
+                srednia[j]/=10;
+                System.out.println(srednia[j]);
+            }
+    }
+    public static void pi() {
+
+        Random los = new Random();
+
+        double m = 0, k = 0, n = 0, nMax = 10;
+        double x, y;
+
+        for (int i = 0; i < 7; i++) {
+
+            while (n <= nMax) {
+                x = los.nextDouble(1);
+                y = los.nextDouble(1);
+
+                if (x * x + y * y <= 1) {
+                    k++;
+                }
+
+                n++;
+            }
+
+            System.out.println(4 * k / n);
+
+            nMax *= 10;
+
+        }
+    }
+
+    public static int randomWalker1D(int N){
+
+        Random los = new Random();
+
+        int pozycja= 0;
+
+        for(int i=0;i<N;i++) {
+            double x = los.nextDouble(1);
+
+            if(x>=0.5){
+                pozycja++;
+            }else if(x<0.5){
+                pozycja--;
+            }
+        }
+
+        return pozycja;
+
+    }
+
+    public static void x(){
+        int n=10;
+        for(int i=0;i<7;i++){
+            System.out.println(randomWalker1D(n));
+            n*=10;
+        }
+    }
+
+    public static void y(){
+        int n=10;
+        double d;
+        for(int i=0;i<7;i++){
+            double [] x = randomWalker2D(n);
+            d=Math.sqrt((x[0] * x[0]) + (x[1] * x[1]));
+            System.out.println(d);
+            n*=10;
+        }
+    }
+
+    public static double[] randomWalker2D(int N){
+        Random los = new Random();
+
+        double x = 0, y = 0;
+
+        for(int i=0;i<N;i++) {
+            double kat = los.nextDouble(1);
+
+            kat *= 2 * Math.PI;
+
+            x += Math.cos(kat);
+
+            y += Math.sin(kat);
+        }
+        double wynik[]={x,y};
+        return wynik;
+    }
+
+    public static void licz(){
+        double [] x={2879.419397,	1881.368332,	2882.912191,	1128.743872,
+                3240.884445,	5502.242487,	1904.136855,	3175.941231,
+                4287.549899,	1892.034935,	2877.523364
+
+        };
+        double suma=0;
+        double srednia =3.224024465;
+
+        for(int i=0;i<x.length;i++){
+            suma+=Math.pow(x[i]-srednia,2);
+        }
+
+        suma /=10;
+
+        suma = Math.sqrt(suma);
+
+        System.out.println(suma/3);
+
+    }
+
 }
