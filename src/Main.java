@@ -56,7 +56,9 @@ public class Main {
 
         //y();
 
-        licz();
+        //licz();
+
+        OHzad2(0,100*Math.PI,10);
     }
 
     public static void test() {
@@ -892,6 +894,66 @@ public class Main {
         suma = Math.sqrt(suma);
 
         System.out.println(suma/3);
+
+    }
+
+
+    public static void OH(double tpocz, double tkon, double n){
+
+        n=1000;
+
+        double h = (tkon-tpocz)/n;
+
+        double x = 0, v = 1, t = tpocz, a = -x;
+
+        for(int i=0;i<5;i++){
+
+            a = -x;
+
+            x = x + h * v;
+
+            v = v + h * a;
+
+            t = t + h;
+
+            System.out.println(x);
+
+            System.out.println(v);
+
+        }
+
+    }
+
+    public static void OHzad2(double tpocz, double tkon, double n){
+
+        n=100;
+
+        double h = (tkon-tpocz)/n;
+
+        double x = 0, v = 1, t = tpocz, a = -x;
+        for(int j=0 ; j<3 ;j++) {
+            for (int i = 0; i < 5; i++) {
+
+                a = -x;
+
+                x = x + h * v;
+
+                v = v + h * a;
+
+                t = t + h;
+
+                System.out.println(x);
+
+                System.out.println(v);
+
+            }
+            n *= 10;
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+
+        }
 
     }
 
